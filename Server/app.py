@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from feature_extractor import extract_features
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def index():
@@ -12,13 +14,14 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
   # Checking is the audio file is present in the request
+  print(request.files)
   if 'audio' not in request.files:
     return jsonify({
       'Message': "No audio file part in the request",
-      'Status Code': 400,
+      'Status Code': 401,
       'Success': False,
       'Data': None
-    }), 400
+    }), 401
 
   # Get the audio file from the request
   file = request.files['audio']
@@ -37,6 +40,7 @@ def upload():
     
     # Extracting features
     features = extract_features(file.filename)
+    print(features)
   
     # After Extracting Deleting the audio file from server
     os.remove(f'uploads/{filename}')
