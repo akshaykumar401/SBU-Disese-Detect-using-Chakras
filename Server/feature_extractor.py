@@ -3,7 +3,7 @@ import librosa
 
 def extract_features(filename):
   # Opening the audio file
-  audio = open(f'./uploads/{filename}', 'rb').read()
+  audio = open(f'./uploads/mp3/{filename}.mp3', 'rb').read()
   
   # Assumption: Audio is sampled at 16kHz
   SAMPLE_RATE = 16000

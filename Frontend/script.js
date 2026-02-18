@@ -6,7 +6,8 @@ const stopRecordingButton = document.getElementById("stop-recording");
 let mediaRecorder;
 let audioChunks = [];
 
-startRecordingButton.onclick = async () => {
+startRecordingButton.onclick = async (event) => {
+  event.preventDefault();
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
   mediaRecorder = new MediaRecorder(stream);
 
@@ -19,17 +20,17 @@ startRecordingButton.onclick = async () => {
   stopRecordingButton.disabled = false;
 };
 
-stopRecordingButton.onclick = async (event) => {
-  event.preventDefault();
+stopRecordingButton.onclick = async (e) => {
+  e.preventDefault();
   mediaRecorder.stop();
-
-  mediaRecorder.onstop = async () => {
+  
+  mediaRecorder.onstop = async (event) => {
     const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
 
     audioChunks = [];
 
     const formData = new FormData();
-    formData.append("audio", audioBlob, "recording.mp3");
+    formData.append("audio", audioBlob, "recording.webm");
 
     await fetch("http://127.0.0.1:8000/upload", {
       method: "POST",

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from feature_extractor import extract_features
 import os
+import subprocess
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -38,12 +39,16 @@ def upload():
     filename = file.filename
     file.save(f'uploads/{filename}')
     
+    # Converting the Audio to mp3
+    subprocess.run(['ffmpeg', '-i', f'uploads/{filename}', f'uploads/mp3/{filename}.mp3'])
+    
     # Extracting features
     features = extract_features(file.filename)
     print(features)
   
     # After Extracting Deleting the audio file from server
     os.remove(f'uploads/{filename}')
+    os.remove(f'uploads/mp3/{filename}.mp3')
   
     return jsonify({
       'Message': "File uploaded successfully",
