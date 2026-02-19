@@ -15,7 +15,6 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
   # Checking is the audio file is present in the request
-  print(request.files)
   if 'audio' not in request.files:
     return jsonify({
       'Message': "No audio file part in the request",
@@ -44,7 +43,6 @@ def upload():
     
     # Extracting features
     features = extract_features(file.filename)
-    print(features)
   
     # After Extracting Deleting the audio file from server
     os.remove(f'uploads/{filename}')
