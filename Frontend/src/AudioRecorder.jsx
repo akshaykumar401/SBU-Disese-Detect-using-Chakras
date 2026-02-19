@@ -82,10 +82,16 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
 
     try {
       const response = await axios.post(
-        "/api/upload",
+        "/apii/upload",
         formData
       );
-      setResult(response.data.Data);
+      // const response = await axios.post(
+      //   "http://127.0.0.1:8000/upload",
+      //   formData
+      // );
+      const data = JSON.parse(response.data);
+      setResult(data.Data);
+      console.log(data);
       setError(false);
       setErrorMessage("");
     } catch (err) {

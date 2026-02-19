@@ -10,6 +10,7 @@ export default defineConfig({
         target: "https://sbu-disese-detect-using-chakras.onrender.com",
         changeOrigin: true,
         secure: false,
+        rewrite: (path) => path.replace(/^\/apii/, ""),
       },
     },
   },

@@ -43,7 +43,9 @@ def upload():
     
     # Extracting features
     features = extract_features(file.filename)
-  
+
+    print(features)
+    
     # After Extracting Deleting the audio file from server
     os.remove(f'uploads/{filename}')
     os.remove(f'uploads/mp3/{filename}.mp3')
