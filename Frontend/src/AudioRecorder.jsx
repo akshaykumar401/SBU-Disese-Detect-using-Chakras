@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import axios from "axios";
 
 function AudioRecorder({ setResult, setError, setErrorMessage }) {
   const mediaRecorderRef = useRef(null);
@@ -80,13 +81,11 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
     formData.append("audio", blob, "recording.webm");
 
     try {
-      const res = await fetch(import.meta.env.VITE_SERVER_URL, {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await res.json();
-      setResult(data.Data);
+      const response = await axios.post(
+        import.meta.env.VITE_SERVER_URL + "/upload",
+        formData
+      );
+      setResult(response.data.Data);
       setError(false);
       setErrorMessage("");
     } catch (err) {
@@ -94,6 +93,22 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
       setErrorMessage("Audio is Not Processed");
       console.error("Upload failed:", err);
     }
+
+    // try {
+    //   const res = await fetch(`api/upload`, {
+    //     method: "POST",
+    //     body: formData,
+    //   });
+
+    //   const data = await res.json();
+    //   setResult(data.Data);
+    //   setError(false);
+    //   setErrorMessage("");
+    // } catch (err) {
+    //   setError(true);
+    //   setErrorMessage("Audio is Not Processed");
+    //   console.error("Upload failed:", err);
+    // }
   };
 
   return (
