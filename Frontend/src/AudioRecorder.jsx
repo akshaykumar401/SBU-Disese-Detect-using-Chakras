@@ -82,7 +82,7 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
 
     try {
       const response = await axios.post(
-        import.meta.env.VITE_SERVER_URL + "/upload",
+        "/api/upload",
         formData
       );
       setResult(response.data.Data);
@@ -95,7 +95,7 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
     }
 
     // try {
-    //   const res = await fetch(`api/upload`, {
+    //   const res = await fetch(`/api/upload`, {
     //     method: "POST",
     //     body: formData,
     //   });
