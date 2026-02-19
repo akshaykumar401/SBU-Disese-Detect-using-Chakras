@@ -11,6 +11,9 @@ function App() {
     <div>
       {error && <div id="error">Error: {errorMessage}</div>}
       <AudioRecorder setResult={setResult} setError={setError} setErrorMessage={setErrorMessage}/>
+      <br />
+      <br />
+      <p>The result is:{typeof result}</p>
 
       {result && (
         <table>
