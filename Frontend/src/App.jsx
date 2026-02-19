@@ -13,27 +13,22 @@ function App() {
       <AudioRecorder setResult={setResult} setError={setError} setErrorMessage={setErrorMessage}/>
 
       {result && (
-        <div id="result">
-          <h2>Result:</h2>
-          <pre>{JSON.stringify(result, null, 2)}</pre>
-        </div>
-
-        // <table>
-        //   <thead>
-        //     <tr>
-        //       <td>Feature</td>
-        //       <td>Value</td>
-        //     </tr>
-        //   </thead>
-        //   <tbody>
-        //     {Object.entries(result).map(([feature, value]) => (
-        //       <tr key={feature}>
-        //         <td>{feature}</td>
-        //         <td>{value}</td>
-        //       </tr>
-        //     ))}
-        //   </tbody>
-        // </table>
+        <table>
+          <thead>
+            <tr>
+              <td>Feature</td>
+              <td>Value</td>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(result).map(([feature, value]) => (
+              <tr key={feature}>
+                <td>{feature}</td>
+                <td>{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
