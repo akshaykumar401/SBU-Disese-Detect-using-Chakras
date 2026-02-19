@@ -80,34 +80,18 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
     const formData = new FormData();
     formData.append("audio", blob, "recording.webm");
 
-    try {
-      const response = await axios.post(
-        "/apii/upload",
-        formData
-      );
-      // const response = await axios.post(
-      //   "http://127.0.0.1:8000/upload",
-      //   formData
-      // );
-      const data = JSON.parse(response.data);
-      setResult(data.Data);
-      console.log(data);
-      setError(false);
-      setErrorMessage("");
-    } catch (err) {
-      setError(true);
-      setErrorMessage("Audio is Not Processed");
-      console.error("Upload failed:", err);
-    }
-
     // try {
-    //   const res = await fetch(`/api/upload`, {
-    //     method: "POST",
-    //     body: formData,
-    //   });
-
-    //   const data = await res.json();
+    //   const response = await axios.post(
+    //     "/apii/upload",
+    //     formData
+    //   );
+    //   // const response = await axios.post(
+    //   //   "http://127.0.0.1:8000/upload",
+    //   //   formData
+    //   // );
+    //   const data = JSON.parse(response.data);
     //   setResult(data.Data);
+    //   console.log(data);
     //   setError(false);
     //   setErrorMessage("");
     // } catch (err) {
@@ -115,6 +99,22 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
     //   setErrorMessage("Audio is Not Processed");
     //   console.error("Upload failed:", err);
     // }
+
+    try {
+      const res = await fetch(`/apii/upload`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      setResult(data.Data);
+      setError(false);
+      setErrorMessage("");
+    } catch (err) {
+      setError(true);
+      setErrorMessage("Audio is Not Processed");
+      console.error("Upload failed:", err);
+    }
   };
 
   return (

@@ -39,7 +39,7 @@ def upload():
     file.save(f'uploads/{filename}')
     
     # Converting the Audio to mp3
-    subprocess.run(['ffmpeg', '-i', f'uploads/{filename}', f'uploads/mp3/{filename}.mp3'])
+    # subprocess.run(['ffmpeg', '-i', f'uploads/{filename}', f'uploads/mp3/{filename}.mp3'])
     
     # Extracting features
     features = extract_features(file.filename)
@@ -48,7 +48,7 @@ def upload():
     
     # After Extracting Deleting the audio file from server
     os.remove(f'uploads/{filename}')
-    os.remove(f'uploads/mp3/{filename}.mp3')
+    # os.remove(f'uploads/mp3/{filename}.mp3')
   
     return jsonify({
       'Message': "File uploaded successfully",
