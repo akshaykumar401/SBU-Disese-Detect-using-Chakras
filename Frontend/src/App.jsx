@@ -13,14 +13,14 @@ function App() {
       <AudioRecorder setResult={setResult} setError={setError} setErrorMessage={setErrorMessage}/>
       <br />
       <br />
-      {result !== null && (
+      {result && (
         <div>
           <p>The result is:{typeof result}</p>
           <p>The result is:{result}</p>
         </div>
       )}
 
-      {result !== null && (
+      {result && (
         <table>
           <thead>
             <tr>
