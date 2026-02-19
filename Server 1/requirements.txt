@@ -28,7 +28,6 @@ python-dotenv==1.2.1
 requests==2.32.5
 scikit-learn==1.8.0
 scipy==1.17.0
-serverless-wsgi==3.1.0
 soundfile==0.13.1
 soxr==1.0.0
 standard-aifc==3.13.0
