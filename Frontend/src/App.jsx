@@ -14,6 +14,7 @@ function App() {
       <br />
       <br />
       <p>The result is:{typeof result}</p>
+      <p>The result is:{result}</p>
 
       {result && (
         <table>
