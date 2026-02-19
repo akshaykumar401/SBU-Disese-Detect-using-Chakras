@@ -23,7 +23,7 @@ function App() {
             <pre>{JSON.stringify(result, null, 2)}</pre>
           </div>
 
-          {/* <table>
+          <table>
             <thead>
               <tr>
                 <td>Feature</td>
@@ -38,7 +38,7 @@ function App() {
                 </tr>
               ))}
             </tbody>
-          </table> */}
+          </table>
         </>
       )}
     </div>
