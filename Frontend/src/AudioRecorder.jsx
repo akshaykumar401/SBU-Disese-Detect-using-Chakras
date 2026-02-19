@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-function AudioRecorder({ setResult }) {
+function AudioRecorder({ setResult, setError, setErrorMessage }) {
   const mediaRecorderRef = useRef(null);
   const streamRef = useRef(null);
   const chunksRef = useRef([]);
@@ -41,8 +41,12 @@ function AudioRecorder({ setResult }) {
       mediaRecorder.start();
 
       setIsRecording(true);
+      setError(false);
+      setErrorMessage("");
     } catch (err) {
       console.error("Mic error:", err);
+      setError(true);
+      setErrorMessage("Microphone permission denied");
       alert("Microphone permission denied");
     }
   };
@@ -76,14 +80,18 @@ function AudioRecorder({ setResult }) {
     formData.append("audio", blob, "recording.webm");
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/upload", {
+      const res = await fetch(import.meta.env.VITE_SERVER_URL, {
         method: "POST",
         body: formData,
       });
 
       const data = await res.json();
       setResult(data.Data);
+      setError(false);
+      setErrorMessage("");
     } catch (err) {
+      setError(true);
+      setErrorMessage("Audio is Not Processed");
       console.error("Upload failed:", err);
     }
   };

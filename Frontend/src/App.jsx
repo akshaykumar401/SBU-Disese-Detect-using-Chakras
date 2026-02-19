@@ -4,10 +4,13 @@ import { useState } from "react";
 
 function App() {
   const [result, setResult] = useState(null);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <div>
-      <AudioRecorder setResult={setResult} />
+      {error && <div id="error">Error: {errorMessage}</div>}
+      <AudioRecorder setResult={setResult} setError={setError} setErrorMessage={setErrorMessage}/>
 
       {result && (
         <table>
