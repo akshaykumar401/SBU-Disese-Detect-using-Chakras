@@ -10,13 +10,19 @@ function App() {
   return (
     <div>
       {error && <div id="error">Error: {errorMessage}</div>}
-      <AudioRecorder setResult={setResult} setError={setError} setErrorMessage={setErrorMessage}/>
+      <AudioRecorder
+        setResult={setResult}
+        setError={setError}
+        setErrorMessage={setErrorMessage}
+      />
       <br />
       <br />
       {result && (
         <div>
-          <p>The result is:{typeof result}</p>
-          <p>The result is:{result}</p>
+          <p>The result is:{typeof(result)}</p>
+          <p>
+            The result is:<pre>{JSON.stringify(result, null, 2)}</pre>
+          </p>
         </div>
       )}
 
