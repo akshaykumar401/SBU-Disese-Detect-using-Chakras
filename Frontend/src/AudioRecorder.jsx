@@ -86,7 +86,6 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
       });
 
       const data = await res.json();
-      // const dataInObject = JSON.parse(data);
       setResult(data);
       setError(false);
       setErrorMessage("");

@@ -15,34 +15,31 @@ function App() {
         setError={setError}
         setErrorMessage={setErrorMessage}
       />
-      <br />
-      <br />
-      {result && (
-        <div>
-          <p>The result is:{typeof(result)}</p>
-          <p>
-            The result is:<pre>{JSON.stringify(result, null, 2)}</pre>
-          </p>
-        </div>
-      )}
 
       {result && (
-        <table>
-          <thead>
-            <tr>
-              <td>Feature</td>
-              <td>Value</td>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(result).map(([feature, value]) => (
-              <tr key={feature}>
-                <td>{feature}</td>
-                <td>{value}</td>
+        <>
+          <div id="result">
+            <h2>Result:</h2>
+            <pre>{JSON.stringify(result, null, 2)}</pre>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <td>Feature</td>
+                <td>Value</td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {Object.entries(result.Data).map(([feature, value]) => (
+                <tr key={feature}>
+                  <td>{feature}</td>
+                  <td>{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
     </div>
   );
