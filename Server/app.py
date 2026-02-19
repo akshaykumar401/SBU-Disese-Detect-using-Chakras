@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from feature_extractor import extract_features
 import os
-import subprocess
 from flask_cors import CORS
 
 app = Flask(__name__)

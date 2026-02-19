@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import axios from "axios";
 
 function AudioRecorder({ setResult, setError, setErrorMessage }) {
   const mediaRecorderRef = useRef(null);
@@ -80,28 +79,8 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
     const formData = new FormData();
     formData.append("audio", blob, "recording.webm");
 
-    // try {
-    //   const response = await axios.post(
-    //     "/apii/upload",
-    //     formData
-    //   );
-    //   // const response = await axios.post(
-    //   //   "http://127.0.0.1:8000/upload",
-    //   //   formData
-    //   // );
-    //   const data = JSON.parse(response.data);
-    //   setResult(data.Data);
-    //   console.log(data);
-    //   setError(false);
-    //   setErrorMessage("");
-    // } catch (err) {
-    //   setError(true);
-    //   setErrorMessage("Audio is Not Processed");
-    //   console.error("Upload failed:", err);
-    // }
-
     try {
-      const res = await fetch(`/apii/upload`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/upload`, {
         method: "POST",
         body: formData,
       });
