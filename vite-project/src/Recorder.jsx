@@ -47,23 +47,18 @@ export default function Recorder({ setData }) {
       });
 
       const url = URL.createObjectURL(cleanBlob);
+      setCleanAudioUrl(url);
 
       // sending the audio file to the server
       const formData = new FormData();
       formData.append("audio", cleanBlob, "clean-audio.wav");
+
       try {
-        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/upload`, formData, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        });
-        console.log("Audio uploaded successfully:", response.data);
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/upload`, formData);
         setData(response.data);
       } catch (error) {
         console.error("Error uploading audio:", error);
       }
-
-      setCleanAudioUrl(url);
     } catch (err) {
       console.error("FFmpeg error:", err);
     } finally {

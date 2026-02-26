@@ -1,8 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Recorder from "./Recorder.jsx";
+import axios from "axios";
+import "./App.css";
 
 const App = () => {
   const [data, setData] = useState(null);
+
+  // Method for starting the Render free server...
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}`);
+        console.log("Response data:", response.data.message);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   return (
     <div
