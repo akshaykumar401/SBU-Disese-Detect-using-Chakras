@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-function AudioRecorder({ setResult, setError, setErrorMessage }) {
+function AudioRecorder({ setResult, setError, setErrorMessage, setIsLoading }) {
   const mediaRecorderRef = useRef(null);
   const streamRef = useRef(null);
   const chunksRef = useRef([]);
@@ -80,6 +80,7 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
     formData.append("audio", blob, "recording.webm");
 
     try {
+      setIsLoading(true);
       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/upload`, {
         method: "POST",
         body: formData,
@@ -89,8 +90,11 @@ function AudioRecorder({ setResult, setError, setErrorMessage }) {
       setResult(data);
       setError(false);
       setErrorMessage("");
+      setIsLoading(false);
     } catch (err) {
       setError(true);
+      setIsLoading(false);
+      setResult(null);
       setErrorMessage("Audio is Not Processed");
       console.error("Upload failed:", err);
     }
