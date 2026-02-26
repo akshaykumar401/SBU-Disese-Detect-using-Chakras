@@ -52,7 +52,11 @@ export default function Recorder({ setData }) {
       const formData = new FormData();
       formData.append("audio", cleanBlob, "clean-audio.wav");
       try {
-        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/upload`, formData);
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/upload`, formData, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
         console.log("Audio uploaded successfully:", response.data);
         setData(response.data);
       } catch (error) {
