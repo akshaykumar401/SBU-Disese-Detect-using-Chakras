@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Recorder from "./Recorder.jsx";
 import axios from "axios";
-import "./App.css";
+import RecordingAudioPage from "./Pages/RecordingAudioPage.jsx"
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -10,7 +9,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}`);
+        const response = await axios.get(`/apii`);
         console.log("Response data:", response.data.message);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -22,38 +21,9 @@ const App = () => {
 
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        width: "100vw",
-        flexDirection: "column",
-      }}
-    >
-      <Recorder setData={setData} />
-      {data && (
-        <>
-          <table>
-            <thead>
-              <tr>
-                <td>Feature</td>
-                <td>Value</td>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(data.Data).map(([feature, value]) => (
-                <tr key={feature}>
-                  <td>{feature}</td>
-                  <td>{value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
-    </div>
+    <>
+      <RecordingAudioPage />
+    </>
   );
 };
 
