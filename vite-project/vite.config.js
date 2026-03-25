@@ -22,7 +22,7 @@ export default defineConfig({
       "/apii": {
         target: "https://sbu-disese-detect-using-chakras.onrender.com",
         changeOrigin: true,
-        secure: false,
+        secure: true,
         rewrite: (path) => path.replace(/^\/apii/, ""),
       },
     },
