@@ -19,11 +19,11 @@ export default defineConfig({
       "Cross-Origin-Embedder-Policy": "require-corp",
     },
     proxy: {
-      "/apii": {
+      '/apii': {
         target: "https://sbu-disese-detect-using-chakras.onrender.com",
         changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(/^\/apii/, ""),
+        secure: false,
+        rewrite: (path) => path.replace(/^\/apii/, ''),
       },
     },
   },
