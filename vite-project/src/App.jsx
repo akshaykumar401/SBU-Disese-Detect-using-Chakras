@@ -9,7 +9,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/apii`);
+        const response = await axios.get("/apii");
         console.log("Response data:", response.data.message);
       } catch (error) {
         console.error("Error fetching data:", error);
