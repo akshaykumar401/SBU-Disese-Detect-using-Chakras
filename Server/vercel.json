@@ -1,8 +1,7 @@
 {
   "functions": {
     "api/*.*": {
-      "memory": 1024,
-      "use": "@vercel/python"
+      "memory": 1024
     }
   }
 }
