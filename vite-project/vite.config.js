@@ -24,10 +24,18 @@ export default defineConfig(({ mode }) => {
         '/apii': {
           // Pointing to local backend dynamically or the Render URL if not found.
           // By default, your local wsgi.py backend is running on 5000.
-          target: env.VITE_SERVER_URL || "http://127.0.0.1:5000",
+          target: env.VITE_SERVER_URL2 || "http://127.0.0.1:8001",
           changeOrigin: true,
           secure: false,
           rewrite: (path) => path.replace(/^\/apii/, ''),
+        },
+        '/api': {
+          // Pointing to local backend dynamically or the Render URL if not found.
+          // By default, your local wsgi.py backend is running on 5000.
+          target: env.VITE_SERVER_URL1 || "http://127.0.0.1:8000",
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
     },

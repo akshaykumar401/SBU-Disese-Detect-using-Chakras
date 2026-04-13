@@ -53,6 +53,21 @@ export default function Recorder({ setData, endpoint }) {
       try {
         const response = await axios.post(endpoint, formData);
         setData(response.data);
+
+        const formData2 = new FormData();
+        formData2.append("Fatigue", response.data.Data.Fatigue)
+        formData2.append("Hoarseness_HNR", response.data.Data.Hoarseness_HNR)
+        formData2.append("Jitter", response.data.Data.Jitter)
+        formData2.append("Pitch_F0", response.data.Data.Pitch_F0)
+        formData2.append("RMS", response.data.Data.RMS)
+
+        if(endpoint === "/apii/upload") {
+          try {
+            const res = await axios.post("/api/enter-data", formData2)
+          } catch (error) {
+            console.error("ERROR: ", error)
+          }
+        }
       } catch (error) {
         console.error("Error uploading audio:", error);
       }

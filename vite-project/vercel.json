@@ -3,6 +3,10 @@
     {
       "source": "/apii/:path*",
       "destination": "https://sbu-disese-detect-using-chakras.onrender.com/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://sbu-disese-detect-using-chakras.onrender.com/:path*"
     }
   ]
 }
