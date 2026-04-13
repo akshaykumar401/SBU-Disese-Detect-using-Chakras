@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/apii/:path*",
-      "destination": "https://sbu-disese-detect-using-chakras.onrender.com/:path*"
+      "destination": "https://throat-feature.onrender.com/:path*"
     },
     {
       "source": "/api/:path*",
-      "destination": "https://sbu-disese-detect-using-chakras.onrender.com/:path*"
+      "destination": "https://throat-google.vercel.app/:path*"
     }
   ]
 }
