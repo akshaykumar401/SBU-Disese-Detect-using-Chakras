@@ -9,9 +9,20 @@ export default function Recorder({ setData, endpoint }) {
   const [loading, setLoading] = useState(false);
 
   const ffmpegRef = useRef(new FFmpeg());
+  const fileInputRef = useRef(null);
+
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    setData(null);
+    setCleanAudioUrl(null);
+    await denoiseAudio(file);
+    event.target.value = ''; // reset input
+  };
 
   // Load FFmpeg once
   const loadFFmpeg = async () => {
+    if (ffmpegRef.current.loaded) return;
     console.log("Loading FFmpeg...");
     await ffmpegRef.current.load();
     console.log("FFmpeg Loaded!");
@@ -139,6 +150,37 @@ export default function Recorder({ setData, endpoint }) {
           </div>
         )}
       />
+
+      <div className="w-full flex items-center space-x-4">
+        <div className="flex-1 border-t border-gray-200"></div>
+        <span className="text-sm font-medium text-gray-400 uppercase tracking-widest">or</span>
+        <div className="flex-1 border-t border-gray-200"></div>
+      </div>
+
+      <div className="w-full bg-white p-6 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 flex flex-col items-center space-y-4 transition-all duration-300">
+        <h3 className="text-gray-500 font-semibold uppercase tracking-widest text-sm">Upload Audio</h3>
+        <input 
+          type="file" 
+          accept="audio/*" 
+          className="hidden" 
+          ref={fileInputRef} 
+          onChange={handleFileUpload} 
+        />
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          disabled={loading}
+          className={`w-full py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-200 ${
+            loading 
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
+              : "bg-white border-2 border-indigo-500 text-indigo-600 hover:bg-indigo-50 hover:shadow-lg shadow-indigo-100 active:scale-95"
+          }`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+          </svg>
+          Choose Audio File
+        </button>
+      </div>
 
       {loading && (
         <div className="flex flex-col items-center space-y-4 p-6 bg-blue-50/80 rounded-2xl w-full border border-blue-100 shadow-sm animate-in fade-in duration-300">
