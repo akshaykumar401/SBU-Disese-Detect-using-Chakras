@@ -7,6 +7,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://throat-google.vercel.app/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
