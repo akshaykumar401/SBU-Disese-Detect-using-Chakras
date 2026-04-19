@@ -4,7 +4,7 @@ import { fetchFile } from "@ffmpeg/util";
 import { useRef, useState } from "react";
 import axios from "axios";
 
-export default function Recorder({ setData, endpoint }) {
+export default function Recorder({ setData, endpoint="/apii/upload" }) {
   const [cleanAudioUrl, setCleanAudioUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
