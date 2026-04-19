@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
   return jsonify({
-    'Message': "Welcome to the Feature Extraction API",
+    'Message': "Welcome to the Google Sheets API",
     'Status Code': 200,
     'Success': True,
     'Data': None
