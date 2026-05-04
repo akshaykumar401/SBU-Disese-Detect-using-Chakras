@@ -3,6 +3,8 @@ import Recorder from '../components/Recorder.jsx';
 
 const Predict = () => {
   const [result, setResult] = useState(null);
+  const [gender, setGender] = useState('m'); // Add state for gender
+
 
   return (
     <div className="max-w-3xl mx-auto p-4 md:p-8 min-h-[80vh] flex flex-col items-center">
@@ -21,8 +23,38 @@ const Predict = () => {
         </p>
       </div>
 
+      {/* Gender Selection */}
+      <div className="w-full bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-6 md:p-10 border border-gray-100 mb-6">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Select Gender</h2>
+        <div className="flex justify-center space-x-6">
+          <label className="flex items-center">
+            <input
+              type="radio"
+              name="gender"
+              value="m"
+              checked={gender === 'm'}
+              onChange={(e) => setGender(e.target.value)}
+              className="mr-2"
+              checked={gender === 'm'}
+            />
+            Male
+          </label>
+          <label className="flex items-center">
+            <input
+              type="radio"
+              name="gender"
+              value="f"
+              checked={gender === 'f'}
+              onChange={(e) => setGender(e.target.value)}
+              className="mr-2"
+            />
+            Female
+          </label>
+        </div>
+      </div>
+
       <div className="w-full bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-6 md:p-10 border border-gray-100 flex flex-col items-center justify-center transition-all duration-300 hover:shadow-2xl">
-        <Recorder setData={setResult} endpoint="/api/predict" />
+        <Recorder setData={setResult} endpoint="/api/predict" gender={gender} />
       </div>
 
       {/* Results Section */}

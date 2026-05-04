@@ -4,7 +4,7 @@ import { fetchFile } from "@ffmpeg/util";
 import { useRef, useState } from "react";
 import axios from "axios";
 
-export default function Recorder({ setData, endpoint="/api/upload" }) {
+export default function Recorder({ setData, endpoint="/api/upload", gender }) {
   const [cleanAudioUrl, setCleanAudioUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -60,6 +60,9 @@ export default function Recorder({ setData, endpoint="/api/upload" }) {
       // sending the audio file to the server
       const formData = new FormData();
       formData.append("audio", cleanBlob, "clean-audio.wav");
+      if (gender) {
+        formData.append("gender", gender);
+      }
 
       try {
         const response = await axios.post(endpoint, formData);

@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 from module.feature_extractor import extract_features
 from module.google_sheets import insert_row
 
+import joblib
+
 # Attempt to load CORS if available (useful for React frontend integration)
 try:
   from flask_cors import CORS
@@ -23,6 +25,9 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 app = Flask(__name__)
+
+# Load the model
+model = joblib.load('model/model.pkl')
 
 # Enable CORS if the library is installed
 if CORS:
@@ -154,6 +159,9 @@ def record():
 @app.route('/predict', methods=['POST'])
 def predict():
   """Predict thyroid disease from uploaded audio file."""
+  gender = request.form.get('gender', 'unknown')  # Optional: can be used for model prediction if needed
+  gender_in_normalized = 1 if gender.lower() == 'm' else 0
+  
   try:
     if 'audio' not in request.files:
       logger.warning("No audio file part in request.")
@@ -189,7 +197,16 @@ def predict():
         # TODO: Make the ML model predict the disease...
 
         # This is just DUMP logic for now -> true means disease detected -> false means no disease detected
-        features['is_thyroid'] = bool(features.get('Jitter', 0) > 3.0) 
+        # features['is_thyroid'] = bool(features.get('Jitter', 0) > 3.0) 
+        prediction = model.predict([[
+          features.get('RMS', 0), 
+          features.get('Pitch_F0', 0), 
+          features.get('Jitter', 0), 
+          features.get('Hoarseness_HNR', 0), 
+          features.get('Fatigue', 0),
+          gender_in_normalized,
+        ]])
+        features['is_thyroid'] = bool(prediction[0])
 
       finally:
         if os.path.exists(filepath):
